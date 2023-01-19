@@ -1,12 +1,13 @@
 from tkinter import *
 from tkinter import ttk
-from add_task_btn import Add_task
-from main_window import TaskManager
+from main_window import *
 
 window_size = "600x700"
-Window = Tk()
+Screen = Tk()
 
-Main_window = TaskManager(Window)
-Add_task_button = Add_task(Window)
+Main_window(window_size, Screen)
+Trash_button()
+Delete_all_button()
+Add_task_button(Screen)
 
-Window.mainloop()
+Screen.mainloop()

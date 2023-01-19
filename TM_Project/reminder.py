@@ -2,9 +2,7 @@ from tkinter import *
 import time 
 
 reminder_window = Tk()
-
 reminder_window.title("New Reminder")
-
 reminder_window.geometry("600x300")
 reminder_window.minsize(600,300)
 reminder_window.maxsize(600,300)
