@@ -1,4 +1,5 @@
 from tkinter import *
+from taskmenu import TaskSettings
 
 class Add_task:
     def __init__(self, master):
@@ -20,12 +21,7 @@ class Add_task:
 
     def add_task(self):
         self.new_window = Toplevel(self.master)
-        self.new_window.geometry("600x700")
-        self.new_window.title("Task Settings")
-        label = Label(self.new_window, text="Task Settings")
-        label.place()
-        reminder_btn = Button(self.new_window, text="Reminder", command=self.reminder)
-        reminder_btn.pack()
+        task_settings = TaskSettings(self.new_window)
 
     def reminder(self):
         self.reminder_window = Toplevel(self.master)
