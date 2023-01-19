@@ -2,7 +2,7 @@ from tkinter import *
 from button_commands import *
 
 
-def Main_window(extension, window):
+def main_window(extension, window):
     '''параметры главного окна'''
     window.title("Task Manager Project")
     window.geometry(extension)
@@ -46,7 +46,7 @@ def Main_window(extension, window):
         height = 600
     )
 
-def Trash_button():
+def trash_button():
     '''Кнопка удалить задачу'''
     trash_button = Button(
         font = ("Consolas", "15"),
@@ -58,7 +58,7 @@ def Trash_button():
         width = 200, 
         height = 50
     )
-def Delete_all_button():
+def delete_all_button():
     '''Кнопка удалить все задачи'''
     deleteall_button = Button(
         font = ("Consolas", "15"), 
@@ -71,7 +71,7 @@ def Delete_all_button():
         width = 200, 
         height = 50
     )
-def Add_task_button(window):
+def add_task_button(window):
     '''Кнопка добавить задачу'''
     addtask_button = Button(
         background = "green",
