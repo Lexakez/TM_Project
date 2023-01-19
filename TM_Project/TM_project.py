@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from add_task_btn import Add_task
 window_size = "600x700"
 
 
@@ -24,12 +25,7 @@ task_label = ttk.Label(
     background = "grey",
 )
 
-addtask_button = Button(
-    background = "green",
-    foreground = "white",
-    font = ("Consolas", "15"), 
-    text = "Add Task:",
-)
+Add_task(Window)
 
 main_label = Label(
     background = "lightgrey"
@@ -68,12 +64,6 @@ def draw():
         height = 600
     )
 
-    addtask_button.place(
-        x = 0, y = 100, 
-        width = 200, 
-        height = 50
-    )
-
     yourtasks_text_label.place(
         x = 200, y = 100, 
         width = 400,
@@ -97,7 +87,6 @@ def draw():
         width = 200, 
         height = 50
     )
-
 draw()
 
 Window.mainloop()
