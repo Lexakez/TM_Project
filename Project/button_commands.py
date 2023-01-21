@@ -111,6 +111,25 @@ def click_task_button(window, task_button, reminder_button):
         width = 250,
         height = 30
     )
+    task_description_label = Label(
+        text = "Description",
+        font = ("Consolas", "14")
+    )
+    task_description_label.place(
+        x = 320, y = 180,
+        width = 150,
+        height = 30
+    )
+    task_description = StringVar()
+    entry_task_description = Entry(
+        font = "14",
+        textvariable = task_description
+    )
+    entry_task_description.place(
+        x = 200, y = 210,
+        width = 400,
+        height = 30
+    )
     save_button = Button(
         text = "Save",
         command = lambda: click_save_task_button(task_name, task_name_label, entry_task_name, task_header_label, save_button)
@@ -124,15 +143,10 @@ def click_task_button(window, task_button, reminder_button):
 task_list = []
 
 def click_save_task_button(task_name, task_name_label, entry_task_name, task_header_label, save_button):
+    '''Кнопка сохранить задачу'''
     task = (New_task(task_name.get()))
     task_list.append(task)
-    task_button = Button(text = task_name.get())
-    y_position = (len(task_list) * 50 + 100)
-    task_button.place(
-        y = y_position, x = 0,
-        width = 200,
-        height = 50,
-    )
+    task.draw(task_name, task_list)
     task_name_label.destroy()
     entry_task_name.destroy()
     task_header_label.destroy()
