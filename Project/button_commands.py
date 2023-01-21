@@ -69,7 +69,7 @@ def click_reminder_button(window, task_setting):
             time_now = time.strftime("%H:%M:%S")
             # timeleft = int(time_now) - int(alarmtime)
             # print(timeleft)
-            print(time_now, alarmtime)
+            # print(time_now, alarmtime)
             if time_now == alarmtime:
                 time_over = Label(reminder_window, font = ("Consolas", "15"), text = "Time is over!", foreground = "red")
                 time_over.place(x = 230, y = 250)
