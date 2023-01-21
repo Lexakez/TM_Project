@@ -1,15 +1,233 @@
 from tkinter import *
-from tkinter import ttk
-from main_window import *
+import time
 from tasks import *
 
-window_size = "600x700"
-Screen = Tk()
+def click_add_task_button(window):
+    '''Нажатие на кнопку добавить новую задачу'''
+    task_button = Button(
+        window,
+        font = ("Consolas", "15"), 
+        text = "Task",
+        command = lambda: click_task_button(window, task_button, reminder_button)
+    )
+    reminder_button = Button(
+        window,
+        font = ("Consolas", "15"), 
+        text = "Reminder",
+        command = lambda: click_reminder_button(window, task_button, reminder_button)
+    )
+    '''отрисовка кнопок выбора задач'''
+    task_button.place(
+        x = 200, y = 100,
+        width = 200,
+        height = 50
+    )
+    
+    reminder_button.place(
+        x = 400, y = 100,
+        width = 200,
+        height = 50
+    )
 
-main_window(window_size, Screen)
-trash_button()
-delete_all_button()
-add_task_button(Screen)
+def click_reminder_button(window, task_button, reminder_button):
+    '''Кнопка выбора напоминания'''
+    task_button.place_forget()
+    reminder_button.place_forget()
+    
+    reminder_header_label = Label(
+        window,
+        font = ("Consolas", "20"),
+        text = "Reminder setting",
+        borderwidth = 2,
+        relief = SOLID
+    )
+    
+    def setalarm():
+        alarmtime = f"{hour.get()}:{minute.get()}:{second.get()}"
+        print(alarmtime)
+        if (alarmtime!="0:0:0"):
+            alarmclock(alarmtime)
+
+    def alarmclock(alarmtime):
+        while True:
+            time.sleep(1)
+            time_now = time.strftime("%H:%M:%S")
+            # timeleft = int(time_now) - int(alarmtime)
+            # print(timeleft)
+            print(time_now, alarmtime)
+            if time_now == alarmtime:
+                time_over = Label(window, font = ("Consolas", "15"), text = "Time is over!", foreground = "red")
+                time_over.place(x = 250, y = 500)
+                print("Wake up!")
+                
+                break
+
+    hour=StringVar()
+    hours = ('00', '01', '02', '03', '04', '05', '06', '07',
+         '08', '09', '10', '11', '12', '13', '14', '15',
+         '16', '17', '18', '19', '20', '21', '22', '23', '24'
+        )
+    hour.set(hours[0])
+
+    minute=StringVar()
+    minutes = ('00', '01', '02', '03', '04', '05', '06', '07',
+           '08', '09', '10', '11', '12', '13', '14', '15',
+           '16', '17', '18', '19', '20', '21', '22', '23',
+           '24', '25', '26', '27', '28', '29', '30', '31',
+           '32', '33', '34', '35', '36', '37', '38', '39',
+           '40', '41', '42', '43', '44', '45', '46', '47',
+           '48', '49', '50', '51', '52', '53', '54', '55',
+           '56', '57', '58', '59', '60')
+    minute.set(minutes[0])
+
+    second=StringVar()
+    seconds = ('00', '01', '02', '03', '04', '05', '06', '07',
+           '08', '09', '10', '11', '12', '13', '14', '15',
+           '16', '17', '18', '19', '20', '21', '22', '23',
+           '24', '25', '26', '27', '28', '29', '30', '31',
+           '32', '33', '34', '35', '36', '37', '38', '39',
+           '40', '41', '42', '43', '44', '45', '46', '47',
+           '48', '49', '50', '51', '52', '53', '54', '55',
+           '56', '57', '58', '59', '60')
+    second.set(seconds[0])
 
 
-Screen.mainloop()
+    timetext_label = Label(
+        window,
+        font = ("Consolas", "15"),
+        text = "Current time:",
+    )
+    
+    setalarm_text = Label(
+        window,
+        font = ("Consolas", 16, 'bold'),
+        text="Set Your Alarm Clock!"
+        )
+    
+    hour_text = Label(
+        window,
+        font = ('arial', 11, 'bold'),
+        text="Hour"
+        )
+    
+    minute_text = Label(
+        window,
+        font = ('arial', 11, 'bold'),
+        text="Minute"
+        )
+    
+    seconds_text = Label(
+        window,
+        font = ('arial', 11, 'bold'),
+        text = "Sec")
+
+    hours_option = OptionMenu(window, hour, *hours)
+    minutes_option = OptionMenu(window, minute, *minutes)
+    seconds_option = OptionMenu(window, second, *seconds)
+
+    settimer_button = Button(window, text="Set Timer!", command = setalarm, bg="#D4AC0D", fg="Black",font = ("Consolas", 19, 'bold'))
+
+    setalarm_text.place(x = 270, y = 250)
+    hour_text.place(x = 270, y = 330)
+    minute_text.place(x = 370, y = 330)
+    seconds_text.place(x = 470, y = 330)
+
+    hours_option.place(x = 270, y = 350)
+    minutes_option.place(x = 370, y = 350)
+    seconds_option.place(x = 470, y = 350)
+    settimer_button.place(x = 330, y = 420)
+    
+
+    reminder_header_label.place(
+        x = 200, y = 150,
+        width = 400,
+        height = 50
+    )
+    
+    # timetext_label.place(
+    #     x = 120, y = 50,
+    #     width = 200,
+    #     height = 50
+    # )
+    
+    # current_time.place(
+    #     x = 220, y = 250,
+    #     width = 300,
+    #     height = 50
+    # )
+
+def click_task_button(window, task_button, reminder_button):
+    '''Кнопка выбора задачи'''
+    task_button.place_forget()
+    reminder_button.place_forget()
+    task_header_label = Label(
+        font = ("Consolas", "20"),
+        text = "Task setting:",
+        borderwidth = 4,
+        relief = SOLID
+    )
+    task_header_label.place(
+        x = 200, y = 100,
+        width = 400,
+        height = 50
+    )
+    task_name_label = Label(
+        text = "Task name:",
+        font = ("Consolas", "14"),
+        relief = SOLID
+    )
+    task_name_label.place(
+        x = 200, y = 150,
+        width = 150,
+        height = 30
+    )
+    task_name = StringVar()
+    entry_task_name = Entry(
+        font = "14",
+        textvariable = task_name,
+    )
+    entry_task_name.place(
+        x = 350, y = 150,
+        width = 250,
+        height = 30
+    )
+    task_description_label = Label(
+        text = "Description",
+        font = ("Consolas", "14")
+    )
+    task_description_label.place(
+        x = 320, y = 180,
+        width = 150,
+        height = 30
+    )
+    task_description = StringVar()
+    entry_task_description = Entry(
+        font = "14",
+        textvariable = task_description
+    )
+    entry_task_description.place(
+        x = 200, y = 210,
+        width = 400,
+        height = 30
+    )
+    save_button = Button(
+        text = "Save",
+        command = lambda: click_save_task_button(task_name, task_name_label, entry_task_name, task_header_label, save_button)
+    )
+    save_button.place(
+        x = 550, y = 660,
+        width = 50,
+        height = 40
+    )
+
+task_list = []
+
+def click_save_task_button(task_name, task_name_label, entry_task_name, task_header_label, save_button):
+    '''Кнопка сохранить задачу'''
+    task = (New_task(task_name.get()))
+    task_list.append(task)
+    task.draw(task_name, task_list)
+    task_name_label.destroy()
+    entry_task_name.destroy()
+    task_header_label.destroy()
+    save_button.destroy()
