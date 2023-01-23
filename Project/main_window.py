@@ -2,6 +2,7 @@ from tkinter import *
 from button_commands import *
 import time
 
+
 def main_window(extension, window):
     '''параметры главного окна'''
     window.title("Task Manager Project")
@@ -15,12 +16,7 @@ def main_window(extension, window):
         borderwidth = 4,
         relief = SOLID
     )
-    
-    # image = PhotoImage(file="F:\code\TM_Project-main\Project/logo.png")
-    
-    # image_label = Label(window, image=image)
-    # image_label.place(x = 400, y = 0, width = 200, height = 100)
-    
+
     def clock():
             '''Часы'''
             clock_time = time.strftime("%H:%M:%S")
@@ -90,6 +86,7 @@ def main_window(extension, window):
         width = 400, 
         height = 600
     )
+
 
 def trash_button():
     '''Кнопка удалить задачу'''

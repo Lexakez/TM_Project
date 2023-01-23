@@ -1,6 +1,10 @@
 from tkinter import *
 import time
 from tasks import *
+from tkinter import messagebox
+import schedule
+import time
+import playsound
 
 def click_add_task_button(window):
     '''Нажатие на кнопку добавить новую задачу'''
@@ -10,7 +14,6 @@ def click_add_task_button(window):
         text = "Task",
         command = lambda: click_task_button(window, task_button, reminder_button)
     )
-    
     reminder_button = Button(
         window,
         font = ("Consolas", "15"), 
@@ -50,7 +53,7 @@ def click_reminder_button(window, task_button, reminder_button):
 
     def alarmclock(alarmtime):
         while True:
-            time.sleep(1)
+            # time.sleep(1)
             time_now = time.strftime("%H:%M:%S")
             # timeleft = int(time_now) - int(alarmtime)
             # print(timeleft)
@@ -62,7 +65,7 @@ def click_reminder_button(window, task_button, reminder_button):
                 
                 break
 
-    hour=StringVar()
+    hour = StringVar()
     hours = ('00', '01', '02', '03', '04', '05', '06', '07',
          '08', '09', '10', '11', '12', '13', '14', '15',
          '16', '17', '18', '19', '20', '21', '22', '23', '24'
@@ -97,25 +100,21 @@ def click_reminder_button(window, task_button, reminder_button):
         font = ("Consolas", "15"),
         text = "Current time:",
     )
-    
     setalarm_text = Label(
         window,
         font = ("Consolas", 16, 'bold'),
         text="Set Your Alarm Clock!"
-        )
-    
+    )
     hour_text = Label(
         window,
         font = ('arial', 11, 'bold'),
         text="Hour"
-        )
-    
+    )
     minute_text = Label(
         window,
         font = ('arial', 11, 'bold'),
         text="Minute"
-        )
-    
+    )
     seconds_text = Label(
         window,
         font = ('arial', 11, 'bold'),
@@ -236,30 +235,80 @@ def click_task_button(window, task_button, reminder_button):
         width = 200,
         height = 200,
     )
+    setalarm_text = Label(
+        window,
+        font = ("Consolas", 14),
+        text="Alarm Clock:",
+        relief = SOLID
+    )
+    hour_text = Label(
+        window,
+        font = ('arial', 14),
+        text="Hour:"
+    )
+    minute_text = Label(
+        window,
+        font = ('arial', 14),
+        text="Minute:"
+    )
+
+    minute=StringVar()
+    hour = StringVar()
+
+    hours = [
+        '00', '01', '02', '03', '04', '05', '06', '07',
+        '08', '09', '10', '11', '12', '13', '14', '15',
+        '16', '17', '18', '19', '20', '21', '22', '23', '24'
+    ]
+    minutes = [
+        '00', '05', '10', '15', '20', '25', '30',
+        '35', '40', '45', '50', '55', '60'
+    ]
+
+    hours_option = OptionMenu(window, hour, *hours)
+    minutes_option = OptionMenu(window, minute, *minutes)
+
+    setalarm_text.place(x = 200, y = 465, width = 150)
+    hour_text.place(x = 355, y = 465)
+    minute_text.place(x = 460, y = 465)
+
+    hours_option.place(x = 410, y = 465)
+    minutes_option.place(x = 530, y = 465)
+    # settimer_button.place(x = 330, y = 630)
     save_button = Button(
         text = "Save",
-        command = lambda: click_save_task_button(task_name, task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box)
+        font = ("Consolas", "20"),
+        command = lambda: click_save_task_button(task_name, task_description, task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box, setalarm_text, hour_text, minute_text, hours_option, minutes_option)
     )
     save_button.place(
-        x = 550, y = 660,
-        width = 50,
-        height = 40
+        x = 300, y = 600,
+        width = 200,
+        height = 50
     )
 
 task_list = []
 
-def click_save_task_button(task_name, task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box):
+def click_save_task_button(task_name, task_description,task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box, setalarm_text, hour_text, minute_text, hours_option, minutes_option):
     '''Кнопка сохранить задачу'''
-    task = (New_task(task_name.get()))
-    task_list.append(task)
-    task.draw(task_name, task_list)
-    task_name_label.destroy()
-    entry_task_name.destroy()
-    task_header_label.destroy()
-    add_button.destroy()
-    task_description_label.destroy()
-    entry_task_description.destroy()
-    goal_label.destroy()
-    entry_goal.destroy()
-    goal_list_box.destroy()
-    save_button.destroy()
+    if task_name.get() == "":
+        messagebox.showinfo("Error", "You can't create a task without a name")
+    else:
+        task = (New_task(task_name.get()))
+        task_list.append(task)
+        task.draw(task_name, task_list)
+        task.save_task_to_csv(task_name.get(), task_description.get())
+        task_name_label.destroy()
+        entry_task_name.destroy()
+        task_header_label.destroy()
+        add_button.destroy()
+        task_description_label.destroy()
+        entry_task_description.destroy()
+        goal_label.destroy()
+        entry_goal.destroy()
+        goal_list_box.destroy()
+        save_button.destroy()
+        setalarm_text.destroy()
+        hour_text.destroy()
+        minute_text.destroy()
+        hours_option.destroy()
+        minutes_option.destroy()
