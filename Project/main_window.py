@@ -87,7 +87,6 @@ def main_window(extension, window):
         height = 600
     )
 
-
 def trash_button():
     '''Кнопка удалить задачу'''
     trash_button = Button(
@@ -122,7 +121,7 @@ def add_task_button(window):
         foreground = "white",
         font = ("Consolas", "15"), 
         text = "Add Task:",
-        command = lambda: click_add_task_button(window)
+        command = lambda: click_add_task_button(window, addtask_button)
     )
     addtask_button.place(
         x = 0,

@@ -6,7 +6,23 @@ import schedule
 import time
 import playsound
 
-def click_add_task_button(window):
+def add_task_button(window):
+    '''Кнопка добавить задачу'''
+    addtask_button = Button(
+        background = "green",
+        foreground = "white",
+        font = ("Consolas", "15"), 
+        text = "Add Task:",
+        command = lambda: click_add_task_button(window, addtask_button)
+    )
+    addtask_button.place(
+        x = 0,
+        y = 100,
+        width=200,
+        height=50
+    )
+
+def click_add_task_button(window, add_task_button):
     '''Нажатие на кнопку добавить новую задачу'''
     task_button = Button(
         window,
@@ -31,6 +47,8 @@ def click_add_task_button(window):
         width = 200,
         height = 50
     )
+    '''Удаление кнопки "добавить новую задачу"'''
+    add_task_button.destroy()
 
 def click_reminder_button(window, task_button, reminder_button):
     '''Кнопка выбора напоминания'''
@@ -278,7 +296,7 @@ def click_task_button(window, task_button, reminder_button):
     save_button = Button(
         text = "Save",
         font = ("Consolas", "20"),
-        command = lambda: click_save_task_button(task_name, task_description, task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box, setalarm_text, hour_text, minute_text, hours_option, minutes_option)
+        command = lambda: click_save_task_button(window, task_name, task_description, task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box, setalarm_text, hour_text, minute_text, hours_option, minutes_option), 
     )
     save_button.place(
         x = 300, y = 600,
@@ -288,7 +306,7 @@ def click_task_button(window, task_button, reminder_button):
 
 task_list = []
 
-def click_save_task_button(task_name, task_description,task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box, setalarm_text, hour_text, minute_text, hours_option, minutes_option):
+def click_save_task_button(window, task_name, task_description,task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box, setalarm_text, hour_text, minute_text, hours_option, minutes_option):
     '''Кнопка сохранить задачу'''
     if task_name.get() == "":
         messagebox.showinfo("Error", "You can't create a task without a name")
@@ -312,3 +330,4 @@ def click_save_task_button(task_name, task_description,task_name_label, entry_ta
         minute_text.destroy()
         hours_option.destroy()
         minutes_option.destroy()
+        add_task_button(window)
