@@ -27,6 +27,7 @@ def main_window(extension, window):
         window,
         font = ("Consolas", "15"),
         text = "Current time:",
+        relief = GROOVE
     )
     
     current_time = Label(
@@ -54,13 +55,14 @@ def main_window(extension, window):
     )
     
     main_label = Label(
-        background = "lightgrey"
+        background = "lightgrey",
     )
     
     yourtasks_text_label = Label(
         foreground = "green",
         font = ("Consolas", "15"), 
         text = "Your Tasks:",
+        relief = SOLID
     )
     
     header_label.place(
@@ -99,33 +101,4 @@ def trash_button():
         width = 200, 
         height = 50
     )
-    
-def delete_all_button():
-    '''Кнопка удалить все задачи'''
-    deleteall_button = Button(
-        font = ("Consolas", "15"), 
-        background = "red",
-        foreground = "white",
-        text = "Delete All",
-    )
-    deleteall_button.place(
-        x = 0, y =650, 
-        width = 200, 
-        height = 50
-    )
-    
-def add_task_button(window):
-    '''Кнопка добавить задачу'''
-    addtask_button = Button(
-        background = "green",
-        foreground = "white",
-        font = ("Consolas", "15"), 
-        text = "Add Task:",
-        command = lambda: click_add_task_button(window, addtask_button)
-    )
-    addtask_button.place(
-        x = 0,
-        y = 100,
-        width=200,
-        height=50
-    )
+
