@@ -251,8 +251,6 @@ def click_save_task_button(window, task_name, task_description, task_name_label,
             height=50
         )
 
-
-
 '''Кнопка добавить задачу'''
 addtask_button = Button(
     background = "green",
