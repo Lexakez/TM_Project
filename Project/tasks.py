@@ -31,6 +31,14 @@ class New_task:
             font = ("Consolas", "14"),
             relief = SOLID
         )
+        task_description_info = Label(
+            text = self.description,
+            font = ("Consolas", "14")
+        )
+        task_description_info.place(
+            x = 350, y = 190,
+            height = 30,
+        )
         task_description_label.place(
             x = 200, y = 190,
             width = 150,
@@ -45,6 +53,55 @@ class New_task:
             x = 330, y = 225,
             width = 150,
             height = 30
+        )
+        self.goal_btn_list = []
+        self.check_list = [] 
+        for i in range(len(self.goal) // 2):
+            check_button_var = IntVar()
+            self.check_list.append(check_button_var)
+            goal_check = Checkbutton(
+                text = self.goal[i * 2],
+                justify = LEFT,
+                bg = "light grey",
+                font = ("Consolas", "15"),
+                variable = check_button_var
+            )
+            self.goal_btn_list.append(goal_check)
+            goal_check.place(
+                x = 250, y = 280 + 30 * i,
+                height = 30
+            )
+        def confirm():
+            for i, check_btn in enumerate(self.check_list):
+                self.goal[i * 2 + 1] = str(check_btn.get())
+            with open('tasks.csv') as inf:
+                csv_reader = reader(inf.readlines())
+
+            with open('tasks.csv', 'w', newline = '') as outf:
+                csv_writer = writer(outf)
+                for line in csv_reader:
+                    if line[1] == self.description and line[0] == self.title:
+                        csv_writer.writerow("|".join(self.goal))
+                        break
+                    else:
+                        csv_writer.writerow(line)
+                csv_writer.writerows(csv_reader)
+            task_name_label.destroy()
+            task_name_info.destroy()
+            task_description_label.destroy()
+            task_description_info.destroy()
+            goal_label.destroy()
+            for goal in self.goal_btn_list:
+                goal.place_forget()
+
+        confirm_button = Button(
+            text = "Confirm",
+            command = confirm,
+            font = ("Consolas", "15")
+        )
+        confirm_button.place(
+            x = 330, y = 620,
+            width = 150, height = 50
         )
 
     def draw(self, i):
@@ -91,6 +148,6 @@ class Note:
             command = ""
         )
 
-    def save_note_to_csv():
+    # def save_note_to_csv():
         
     

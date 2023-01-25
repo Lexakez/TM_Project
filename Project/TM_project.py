@@ -226,7 +226,14 @@ def click_save_task_button(window, task_name, task_description, task_name_label,
     if task_name.get() == "":
         messagebox.showinfo("Error", "You can't create a task without a name")
     else:
-        task = (New_task(task_name.get(), task_description.get(), list(goal_list_box.get(0, END)), str(hours.get() + ':' + minutes.get())))
+        goals_copy = list(goal_list_box.get(0, END)).copy()
+        result = []
+        for st_idx in range(0, len(goals_copy), 1):
+            result.extend(goals_copy[st_idx:st_idx+1])
+            result.append("0")
+        print(result)
+        task = (New_task(task_name.get(), task_description.get(), result, str(hours.get() + ':' + minutes.get())))
+        print(result)
         csv_task_list.append(task)
         task.draw(len(csv_task_list) - 1)
         goals = goal_list_box.get(0, END)
