@@ -23,10 +23,21 @@ try:
         for line in csv_reader:
             csv_task_list.append(New_task(line[0], line[1], line[2].split("|"), line[3]))
 except FileNotFoundError:
-    print("No such file")
+    print("No such file")   
 
 for i, task in enumerate(csv_task_list):
-    task.draw(i)
+    task.draw(i, len(csv_note_list))
+    
+try:
+    with open("notes.csv", "r") as csv_file:
+        csv_reader = reader(csv_file, delimiter = ",")
+        next(csv_reader)
+        for line in csv_reader:
+            csv_note_list.append(Note(line[0], line[1]))
+except FileNotFoundError:
+    print("No such file")
+for i, note in enumerate(csv_note_list):
+    note.draw(i, len(csv_task_list))
 
 def click_delete_all_button():
     '''Нажатие на кнопку удалить все, удаляет все из цсв файла'''
@@ -264,10 +275,11 @@ def click_notes_button(window, task_button, notes_button):
         width = 150,
         height = 30
     )
-    note_description = StringVar()
+    
     entry_note_description = Text(
         font = ("Consolas", "14"),
-        bg = "light cyan"
+        bg = "light cyan",
+        
     )
     entry_note_description.place(
         x = 360, y = 190,
@@ -277,7 +289,7 @@ def click_notes_button(window, task_button, notes_button):
     save_button = Button(
         text = "Save",
         font = ("Consolas", "20"),
-        command = ''
+        command = lambda:click_save_note_button(note_name, notes_name_label, entry_note_name, notes_header_label, note_description_label, entry_note_description, save_button)
     )
     save_button.place(
         x = 300, y = 600,
@@ -301,7 +313,7 @@ def click_save_task_button(window, task_name, task_description, task_name_label,
         task = (New_task(task_name.get(), task_description.get(), result, str(hours.get() + ':' + minutes.get())))
         print(result)
         csv_task_list.append(task)
-        task.draw(len(csv_task_list) - 1)
+        task.draw(len(csv_task_list) - 1, len(csv_note_list))
         goals = goal_list_box.get(0, END)
         task.save_task_to_csv(task_name.get(), task_description.get(), goals, hours.get(), minutes.get())
         '''Убирает с экрана настройки задачи и возвращает кнопку "добавить новую задачу"'''
@@ -327,8 +339,33 @@ def click_save_task_button(window, task_name, task_description, task_name_label,
             height=50
         )
 
-# def click_save_note_button(note_name, note_description):
-
+def click_save_note_button(note_name, notes_name_label, entry_note_name, note_header_label, note_description_label, entry_note_description, save_button):
+    if note_name.get() == "":
+        messagebox.showinfo("Error", "You can't create a task without a name")
+    else:
+        note_description = (entry_note_description.get(1.0, END))
+        note_description = note_description.replace('\n',' ')
+        note = Note(note_name.get(), note_description)
+        csv_note_list.append(note)
+        note.draw(len(csv_task_list), len(csv_note_list) - 1)
+        note.save_note_to_csv(note_name.get(), note_description)
+        print(note_description)
+        notes_name_label.destroy()
+        entry_note_name.destroy()
+        note_header_label.destroy()
+        note_description_label.destroy()
+        entry_note_description.destroy()
+        save_button.destroy()
+        
+        
+        addtask_button.place(
+                x = 0,
+                y = 100,
+                width=200,
+                height=50
+            )
+    
+    
 '''Кнопка добавить задачу'''
 addtask_button = Button(
     background = "green",

@@ -104,13 +104,13 @@ class New_task:
             width = 150, height = 50
         )
 
-    def draw(self, i):
+    def draw(self, i, x):
         '''Создание кнопки для задачи'''
         self.task_button = Button(
         text = self.title,
         command = self.open_task_info
     )
-        y_position = ((i + 1) * 50 + 100)
+        y_position = (((i + 1) + x) * 50 + 100)
         self.task_button.place(
             y = y_position, x = 0,
             width = 200,
@@ -192,17 +192,29 @@ class Note:
             height = 300
         )
 
-    def draw(self):
+    def draw(self, i, x):
         self.note_button = Button(
             text = self.note_name,
-            command = ""
+            command = "",
+            
+        )
+        
+        y_position = (i + 1 + x)*50 + 100
+        
+        self.note_button.place(
+            x = 0,
+            y = y_position,
+            width = 200,
+            height = 50
+            
         )
 
-    def save_note_to_csv(self):
+    def save_note_to_csv(self, note_name, note_description):
         with open('notes.csv', mode = 'a', newline = '') as csv_file:
             fieldnames = ['Note Name', 'Note Description']
             writer = DictWriter(csv_file, fieldnames = fieldnames)
             writer.writerow({
-                'Note Name' : self.note_name,
-                'Note Description' : self.note_description,
-            })    
+                'Note Name' : note_name,
+                'Note Description' : note_description
+            })  
+              
