@@ -43,26 +43,29 @@ def click_add_task_button(window, add_task_button):
     '''Нажатие на кнопку добавить новую задачу'''
     if len(csv_task_list) == 9:
         messagebox.showinfo("Error", "You can't create more than 9 tasks/reminders")
+        
     else:
         task_button = Button(
             window,
             font = ("Consolas", "15"), 
             text = "Task",
-            command = lambda: click_task_button(window, task_button, reminder_button)
+            command = lambda: click_task_button(window, task_button, notes_button)
         )
-        reminder_button = Button(
+
+        notes_button = Button(
             window,
             font = ("Consolas", "15"), 
-            text = "Reminder",
-            command = lambda: click_reminder_button(window, task_button, reminder_button)
+            text = "Notes",
+            command = lambda: click_notes_button(window, task_button, notes_button)
         )
+
         '''отрисовка кнопок выбора задач'''
         task_button.place(
             x = 200, y = 100,
             width = 200,
             height = 50
         )
-        reminder_button.place(
+        notes_button.place(
             x = 400, y = 100,
             width = 200,
             height = 50
@@ -70,10 +73,10 @@ def click_add_task_button(window, add_task_button):
         '''Удаление кнопки "добавить новую задачу"'''
         add_task_button.place_forget()
 
-def click_task_button(window, task_button, reminder_button):
+def click_task_button(window, task_button, notes_button):
     '''Кнопка выбора задачи'''
     task_button.place_forget()
-    reminder_button.place_forget()
+    notes_button.place_forget()
     task_header_label = Label(
         font = ("Consolas", "20"),
         text = "Task setting:",
@@ -256,7 +259,7 @@ addtask_button = Button(
     background = "green",
     foreground = "white",
     font = ("Consolas", "15"), 
-    text = "Add Task:",
+    text = "Add Task",
     command = lambda: click_add_task_button(Screen, addtask_button)
 )
 addtask_button.place(

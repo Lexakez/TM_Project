@@ -7,6 +7,7 @@ class New_task:
         self.description = description
         self.goal = goal
         self.time = time
+
     def open_task_info(self):
         task_name_label = Label(
             text = "Task name:",
@@ -78,4 +79,18 @@ class New_task:
                 'Goals': goals_str,
                 'Time': time_str
             })
+
+class Note:
+    def __init__(self,note_name, note_description):
+        self.note_name = note_name
+        self.note_description = note_description
+
+    def draw(self):
+        self.note_button = Button(
+            text = self.note_name,
+            command = ""
+        )
+
+    def save_note_to_csv():
+        
     
