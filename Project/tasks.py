@@ -205,10 +205,4 @@ class Note:
             writer.writerow({
                 'Note Name' : self.note_name,
                 'Note Description' : self.note_description,
-            })
-            
-    
-            
-            
-        
-    
+            })    

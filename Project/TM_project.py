@@ -5,8 +5,6 @@ from tasks import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 from csv import *
-import time
-import os
 
 window_size = "600x700"
 Screen = Tk()
@@ -16,6 +14,7 @@ trash_button()
 
 
 csv_task_list = []
+csv_note_list = []
 
 try:
     with open("tasks.csv", "r") as csv_file:
@@ -212,6 +211,73 @@ def click_task_button(window, task_button, notes_button):
         text = "Save",
         font = ("Consolas", "20"),
         command = lambda: click_save_task_button(window, task_name, task_description, task_name_label, entry_task_name, task_header_label, save_button, add_button, task_description_label, entry_task_description, goal_label, entry_goal, goal_list_box, setalarm_text, hour_text, minute_text, hours_option, minutes_option, minute, hour), 
+    )
+    save_button.place(
+        x = 300, y = 600,
+        width = 200,
+        height = 50
+    )
+
+def click_notes_button(window, task_button, notes_button):
+    '''Кнопка выбора заметки'''
+    task_button.place_forget()
+    notes_button.place_forget()
+
+    notes_header_label = Label(
+        font = ("Consolas", "20"),
+        text = "Notes setting",
+        borderwidth = 2,
+        relief = SOLID
+    )
+    notes_header_label.place(
+        x = 200, y = 100,
+        width = 400,
+        height = 50
+    )
+    notes_name_label = Label(
+        text = "Note name:",
+        font = ("Consolas", "14"),
+        relief = SOLID
+    )
+    notes_name_label.place(
+        x = 200, y = 155,
+        width = 150,
+        height = 30
+    )
+    note_name = StringVar()
+    entry_note_name = Entry(
+        font = "14",
+        textvariable = note_name,
+    )
+    entry_note_name.place(
+        x = 360, y = 155,
+        width = 220,
+        height = 30
+    )
+    note_description_label = Label(
+        text = "Description",
+        font = ("Consolas", "14"),
+        relief = SOLID
+    )
+    note_description_label.place(
+        x = 200, y = 190,
+        width = 150,
+        height = 30
+    )
+    note_description = StringVar()
+    entry_note_description = Text(
+        font = ("Consolas", "14"),
+        bg = "light cyan"
+    )
+    entry_note_description.place(
+        x = 360, y = 190,
+        width = 220,
+        height = 300
+    )
+    save_button = Button(
+        text = "Save",
+        font = ("Consolas", "20"),
+        command = ''
     )
     save_button.place(
         x = 300, y = 600,
