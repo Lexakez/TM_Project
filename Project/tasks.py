@@ -141,6 +141,56 @@ class Note:
     def __init__(self,note_name, note_description):
         self.note_name = note_name
         self.note_description = note_description
+        
+    def open_note_info(self):
+
+        notes_name_label = Label(
+            text = "Note name:",
+            font = ("Consolas", "14"),
+            relief = SOLID
+        )
+        
+        notes_name_label.place(
+            x = 200, y = 155,
+            width = 150,
+            height = 30
+        )
+
+        note_name = StringVar()
+        entry_note_name = Entry(
+            font = "14",
+            textvariable = note_name,
+        )
+        
+        entry_note_name.place(
+            x = 360, y = 155,
+            width = 220,
+            height = 30
+        )
+
+        note_description_label = Label(
+            text = "Description",
+            font = ("Consolas", "14"),
+            relief = SOLID
+        )
+
+        note_description_label.place(
+            x = 200, y = 190,
+            width = 150,
+            height = 30
+        )
+
+        note_description = StringVar()
+        entry_note_description = Text(
+            font = ("Consolas", "14"),
+            bg = "light cyan"
+        )
+        
+        entry_note_description.place(
+            x = 360, y = 190,
+            width = 220,
+            height = 300
+        )
 
     def draw(self):
         self.note_button = Button(
@@ -148,6 +198,17 @@ class Note:
             command = ""
         )
 
-    # def save_note_to_csv():
+    def save_note_to_csv(self):
+        with open('notes.csv', mode = 'a', newline = '') as csv_file:
+            fieldnames = ['Note Name', 'Note Description']
+            writer = DictWriter(csv_file, fieldnames = fieldnames)
+            writer.writerow({
+                'Note Name' : self.note_name,
+                'Note Description' : self.note_description,
+            })
+            
+    
+            
+            
         
     
