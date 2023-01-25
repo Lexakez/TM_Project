@@ -11,10 +11,42 @@ Screen = Tk()
 
 main_window(window_size, Screen)
 
-
-
 csv_task_list = []
 csv_note_list = []
+
+def cheking():
+    check = True
+    if check:
+        for task in csv_task_list:
+            if not task.exist:
+                check = False
+                csv_task_list.remove(task)
+                for task2 in csv_task_list:
+                    task2.task_button.destroy()
+                for note2 in csv_note_list:
+                    note2.note_button.destroy()
+                for i, task in enumerate(csv_task_list):
+                    task.draw(i, 0)
+                for i, note in enumerate(csv_note_list):
+                    note.draw(i, len(csv_task_list))
+                break
+    if check:
+        for note in csv_note_list:
+            if not note.exist:
+                check = False
+                csv_note_list.remove(note)
+                for task2 in csv_task_list:
+                    task2.task_button.destroy()
+                for note2 in csv_note_list:
+                    note2.note_button.destroy()
+                for i, task in enumerate(csv_task_list):
+                    task.draw(i, 0)
+                for i, note in enumerate(csv_note_list):
+                    note.draw(i, len(csv_task_list))
+                break
+    Screen.after(1, cheking)
+
+
 
 try:
     with open("tasks.csv", "r") as csv_file:
@@ -392,6 +424,8 @@ deleteall_button.place(
     width = 200, 
     height = 50
 )
+
+cheking()
 
 image = Image.open("logo.png")
 image = image.resize((90, 90), Image.ANTIALIAS)

@@ -9,6 +9,7 @@ class New_task:
         self.description = description
         self.goal = goal
         self.time = time
+        self.exist = True
 
     def open_task_info(self):
         task_name_label = Label(
@@ -150,6 +151,7 @@ class New_task:
             task_description_info.destroy()
             goal_label.destroy()
             confirm_button.destroy()
+            self.exist = False
             if self.time == ":":
                 pass
             else:
@@ -168,6 +170,7 @@ class New_task:
             x = 400, y = 620,
             width = 150, height = 50
         )
+
 
     def draw(self, i, x):
         '''Создание кнопки для задачи'''
@@ -205,7 +208,8 @@ class Note:
     def __init__(self,note_name, note_description):
         self.note_name = note_name
         self.note_description = note_description
-        
+        self.exist = True
+
     def open_note_info(self):
         notes_name_label = Label(
             text = "Note name:",
@@ -279,6 +283,7 @@ class Note:
             text_note_name.destroy()
             confirm_button.destroy()
             delete_note_button.destroy()
+            self.exist = False
         delete_note_button = Button(
             text = "Delete note",
             font = ("Consolas", "15"),
