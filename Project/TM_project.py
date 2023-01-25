@@ -10,7 +10,7 @@ window_size = "600x700"
 Screen = Tk()
 
 main_window(window_size, Screen)
-trash_button()
+
 
 
 csv_task_list = []
@@ -36,6 +36,7 @@ try:
             csv_note_list.append(Note(line[0], line[1]))
 except FileNotFoundError:
     print("No such file")
+
 for i, note in enumerate(csv_note_list):
     note.draw(i, len(csv_task_list))
 
@@ -309,9 +310,7 @@ def click_save_task_button(window, task_name, task_description, task_name_label,
         for st_idx in range(0, len(goals_copy), 1):
             result.extend(goals_copy[st_idx:st_idx+1])
             result.append("0")
-        print(result)
         task = (New_task(task_name.get(), task_description.get(), result, str(hours.get() + ':' + minutes.get())))
-        print(result)
         csv_task_list.append(task)
         task.draw(len(csv_task_list) - 1, len(csv_note_list))
         goals = goal_list_box.get(0, END)
@@ -349,7 +348,6 @@ def click_save_note_button(note_name, notes_name_label, entry_note_name, note_he
         csv_note_list.append(note)
         note.draw(len(csv_task_list), len(csv_note_list) - 1)
         note.save_note_to_csv(note_name.get(), note_description)
-        print(note_description)
         notes_name_label.destroy()
         entry_note_name.destroy()
         note_header_label.destroy()
@@ -364,8 +362,8 @@ def click_save_note_button(note_name, notes_name_label, entry_note_name, note_he
                 width=200,
                 height=50
             )
-    
-    
+
+
 '''Кнопка добавить задачу'''
 addtask_button = Button(
     background = "green",

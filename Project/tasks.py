@@ -1,6 +1,8 @@
 from tkinter import *
 from csv import *
 
+
+
 class New_task:
     def __init__(self, title, description, goal, time):
         self.title = title
@@ -64,35 +66,62 @@ class New_task:
                 justify = LEFT,
                 bg = "light grey",
                 font = ("Consolas", "15"),
-                variable = check_button_var
+                variable = check_button_var,
             )
+            if self.goal[i * 2 + 1] == "1":
+                goal_check.select()
             self.goal_btn_list.append(goal_check)
             goal_check.place(
-                x = 250, y = 280 + 30 * i,
+                x = 250, y = 255 + 30 * i,
                 height = 30
             )
+        if self.time == ":":
+            pass
+        else:
+            deadline_label = Label(
+                text = "Dead line: ",
+                font = ("Consolas", "15")
+            )
+            deadline_label.place(
+                x = 200, y = 580,
+                width = 120, height = 30
+            )
+            deadline_time = Label(
+                text = self.time,
+                font = ("Consolas", "15")
+            )
+            deadline_time.place(
+                x = 320, y = 580,
+                height = 30
+            )
+
         def confirm():
             for i, check_btn in enumerate(self.check_list):
                 self.goal[i * 2 + 1] = str(check_btn.get())
             with open('tasks.csv') as inf:
-                csv_reader = reader(inf.readlines())
-
-            with open('tasks.csv', 'w', newline = '') as outf:
-                csv_writer = writer(outf)
-                for line in csv_reader:
-                    if line[1] == self.description and line[0] == self.title:
-                        csv_writer.writerow("|".join(self.goal))
-                        break
-                    else:
-                        csv_writer.writerow(line)
+                csv_reader = list(reader(inf.readlines()))
+            
+            for task in csv_reader[1:]:
+                if task[0] == self.title and task[1] == self.description:
+                    task[2] = "|".join(self.goal)
+            with open("tasks.csv", 'w', newline = '') as csv_file:
+                csv_writer = writer(csv_file)
                 csv_writer.writerows(csv_reader)
+
             task_name_label.destroy()
             task_name_info.destroy()
             task_description_label.destroy()
             task_description_info.destroy()
             goal_label.destroy()
+            confirm_button.destroy()
+            if self.time == ":":
+                pass
+            else:
+                deadline_label.destroy()
+                deadline_time.destroy()
             for goal in self.goal_btn_list:
                 goal.place_forget()
+            delete_task_button.destroy()
 
         confirm_button = Button(
             text = "Confirm",
@@ -100,7 +129,43 @@ class New_task:
             font = ("Consolas", "15")
         )
         confirm_button.place(
-            x = 330, y = 620,
+            x = 230, y = 620,
+            width = 150, height = 50
+        )
+        def click_delete_task():
+            '''Нажатие на кнопу удалить задачу'''
+            self.task_button.place_forget()
+            with open('tasks.csv') as inf:
+                csv_reader = list(reader(inf.readlines()))
+            csv_reader_copy = csv_reader.copy()
+            for task in csv_reader[1:]:
+                if task[0] == self.title and task[1] == self.description:
+                    csv_reader_copy.remove(task)
+            with open("tasks.csv", 'w', newline = '') as csv_file:
+                csv_writer = writer(csv_file)
+                csv_writer.writerows(csv_reader_copy)
+            task_name_label.destroy()
+            task_name_info.destroy()
+            task_description_label.destroy()
+            task_description_info.destroy()
+            goal_label.destroy()
+            confirm_button.destroy()
+            if self.time == ":":
+                pass
+            else:
+                deadline_label.destroy()
+                deadline_time.destroy()
+            for goal in self.goal_btn_list:
+                goal.place_forget()
+            delete_task_button.destroy()
+        delete_task_button = Button(
+            text = "Delete task",
+            font = ("Consolas", "15"),
+            command = click_delete_task,
+            foreground = "red",
+        )
+        delete_task_button.place(
+            x = 400, y = 620,
             width = 150, height = 50
         )
 
@@ -116,7 +181,6 @@ class New_task:
             width = 200,
             height = 50,
     )
-
     def __repr__(self) -> str:
         return self.title
 
@@ -143,72 +207,101 @@ class Note:
         self.note_description = note_description
         
     def open_note_info(self):
-
         notes_name_label = Label(
             text = "Note name:",
             font = ("Consolas", "14"),
             relief = SOLID
         )
-        
         notes_name_label.place(
             x = 200, y = 155,
             width = 150,
             height = 30
         )
-
-        note_name = StringVar()
-        entry_note_name = Entry(
-            font = "14",
-            textvariable = note_name,
+        text_note_name = Label(
+            text = self.note_name,
+            font = ("Consolas", "14")
         )
-        
-        entry_note_name.place(
-            x = 360, y = 155,
-            width = 220,
+        text_note_name.place(
+            x = 350, y = 155,
             height = 30
         )
-
         note_description_label = Label(
             text = "Description",
             font = ("Consolas", "14"),
             relief = SOLID
         )
-
         note_description_label.place(
             x = 200, y = 190,
             width = 150,
             height = 30
         )
-
-        note_description = StringVar()
-        entry_note_description = Text(
+        text_note_description = Label(
+            text = self.note_description,
             font = ("Consolas", "14"),
-            bg = "light cyan"
+            wraplength = 250,
+            justify = CENTER
         )
-        
-        entry_note_description.place(
-            x = 360, y = 190,
-            width = 220,
-            height = 300
+        text_note_description.place(
+            x = 350, y = 190,
+            width = 250,
+        )
+        def confirm():
+            notes_name_label.destroy()
+            note_description_label.destroy()
+            text_note_description.destroy()
+            text_note_name.destroy()
+            confirm_button.destroy()
+            delete_note_button.destroy()
+
+        confirm_button = Button(
+            text = "Confirm",
+            command = confirm,
+            font = ("Consolas", "15")
+        )
+        confirm_button.place(
+            x = 230, y = 620,
+            width = 150, height = 50
+        )
+        def click_delete_note():
+            self.note_button.place_forget()
+            with open('notes.csv') as inf:
+                csv_reader = list(reader(inf.readlines()))
+            csv_reader_copy = csv_reader.copy()
+            for note in csv_reader[1:]:
+                if note[0] == self.note_name and note[1] == self.note_description:
+                    csv_reader_copy.remove(note)
+            with open("notes.csv", 'w', newline = '') as csv_file:
+                csv_writer = writer(csv_file)
+                csv_writer.writerows(csv_reader_copy)
+            notes_name_label.destroy()
+            note_description_label.destroy()
+            text_note_description.destroy()
+            text_note_name.destroy()
+            confirm_button.destroy()
+            delete_note_button.destroy()
+        delete_note_button = Button(
+            text = "Delete note",
+            font = ("Consolas", "15"),
+            command = click_delete_note,
+            foreground = "red",
+        )
+        delete_note_button.place(
+            x = 400, y = 620,
+            width = 150, height = 50
         )
 
     def draw(self, i, x):
         self.note_button = Button(
             text = self.note_name,
-            command = "",
-            
+            command = self.open_note_info,
         )
-        
         y_position = (i + 1 + x)*50 + 100
-        
         self.note_button.place(
             x = 0,
             y = y_position,
             width = 200,
             height = 50
-            
         )
-
     def save_note_to_csv(self, note_name, note_description):
         with open('notes.csv', mode = 'a', newline = '') as csv_file:
             fieldnames = ['Note Name', 'Note Description']
@@ -217,4 +310,4 @@ class Note:
                 'Note Name' : note_name,
                 'Note Description' : note_description
             })  
-              
+

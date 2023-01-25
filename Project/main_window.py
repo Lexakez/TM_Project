@@ -89,16 +89,3 @@ def main_window(extension, window):
         height = 600
     )
 
-def trash_button():
-    '''Кнопка удалить задачу'''
-    trash_button = Button(
-        font = ("Consolas", "15"),
-        foreground = "red",
-        text = "Delete Task",
-    )
-    trash_button.place(
-        x = 0, y =600, 
-        width = 200, 
-        height = 50
-    )
-
