@@ -176,7 +176,9 @@ class New_task:
         '''Создание кнопки для задачи'''
         self.task_button = Button(
         text = self.title,
-        command = self.open_task_info
+        command = self.open_task_info,
+        bg = ("light green"),
+        font = ("Consolas", "13")
     )
         y_position = (((i + 1) + x) * 50 + 100)
         self.task_button.place(
@@ -297,6 +299,8 @@ class Note:
 
     def draw(self, i, x):
         self.note_button = Button(
+            bg = ("light blue"),
+            font = ("Consolas", "13"),
             text = self.note_name,
             command = self.open_note_info,
         )

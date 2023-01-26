@@ -44,7 +44,7 @@ def cheking():
                 for i, note in enumerate(csv_note_list):
                     note.draw(i, len(csv_task_list))
                 break
-    Screen.after(1, cheking)
+    Screen.after(100, cheking)
 
 
 
