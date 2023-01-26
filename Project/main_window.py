@@ -1,7 +1,7 @@
 from tkinter import *
 # from button_commands import *
 import time
-
+from tkinter import font
 
 def main_window(extension, window):
     '''параметры главного окна'''
@@ -11,10 +11,11 @@ def main_window(extension, window):
     window.maxsize(600,700)
     
     header_label = Label(
-        font = ("Consolas", "20"), 
+        font = font.Font(family = "Consolas", weight = "bold", size = 23, slant = "italic"), 
+        foreground = "dimgrey",
         text = "TO-DO LIST",
         borderwidth = 4,
-        relief = SOLID
+        relief = RIDGE
     )
 
     def clock():
@@ -61,8 +62,8 @@ def main_window(extension, window):
     yourtasks_text_label = Label(
         foreground = "green",
         font = ("Consolas", "15"), 
-        text = "Your Tasks:",
-        relief = SOLID
+        text = "Task Description",
+        relief = GROOVE
     )
     
     header_label.place(

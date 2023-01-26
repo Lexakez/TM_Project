@@ -27,7 +27,7 @@ class New_task:
             text = self.title,
         )
         task_name_info.place(
-            x = 350, y = 155
+            x = 360, y = 155
         )
         task_description_label = Label(
             text = "Description:",
@@ -39,7 +39,7 @@ class New_task:
             font = ("Consolas", "14")
         )
         task_description_info.place(
-            x = 350, y = 190,
+            x = 360, y = 190,
             height = 30,
         )
         task_description_label.place(
@@ -53,7 +53,7 @@ class New_task:
             relief = SOLID
         )
         goal_label.place(
-            x = 330, y = 225,
+            x = 200, y = 225,
             width = 150,
             height = 30
         )
@@ -80,11 +80,11 @@ class New_task:
             pass
         else:
             deadline_label = Label(
-                text = "Dead line: ",
+                text = "Deadline: ",
                 font = ("Consolas", "15")
             )
             deadline_label.place(
-                x = 200, y = 580,
+                x = 300, y = 580,
                 width = 120, height = 30
             )
             deadline_time = Label(
@@ -92,7 +92,7 @@ class New_task:
                 font = ("Consolas", "15")
             )
             deadline_time.place(
-                x = 320, y = 580,
+                x = 420, y = 580,
                 height = 30
             )
 

@@ -14,7 +14,9 @@ main_window(window_size, Screen)
 csv_task_list = []
 csv_note_list = []
 
+
 def cheking():
+    '''Перерисовка кнопок и удаление их из списка'''
     check = True
     if check:
         for task in csv_task_list:
@@ -45,7 +47,6 @@ def cheking():
                     note.draw(i, len(csv_task_list))
                 break
     Screen.after(100, cheking)
-
 
 
 try:
@@ -124,7 +125,7 @@ def click_task_button(window, task_button, notes_button):
         font = ("Consolas", "20"),
         text = "Task setting:",
         borderwidth = 4,
-        relief = SOLID
+        relief = GROOVE
     )
     task_header_label.place(
         x = 200, y = 100,
@@ -134,7 +135,7 @@ def click_task_button(window, task_button, notes_button):
     task_name_label = Label(
         text = "Task name:",
         font = ("Consolas", "14"),
-        relief = SOLID
+        relief = GROOVE
     )
     task_name_label.place(
         x = 200, y = 155,
@@ -147,14 +148,14 @@ def click_task_button(window, task_button, notes_button):
         textvariable = task_name,
     )
     entry_task_name.place(
-        x = 350, y = 155,
-        width = 250,
+        x = 360, y = 155,
+        width = 210,
         height = 30
     )
     task_description_label = Label(
         text = "Description",
         font = ("Consolas", "14"),
-        relief = SOLID
+        relief = GROOVE
     )
     task_description_label.place(
         x = 200, y = 190,
@@ -167,14 +168,14 @@ def click_task_button(window, task_button, notes_button):
         textvariable = task_description
     )
     entry_task_description.place(
-        x = 350, y = 190,
-        width = 250,
+        x = 360, y = 190,
+        width = 210,
         height = 30
     )
     goal_label = Label(
         text = "Goals:",
         font = ("Consolas", "14"),
-        relief = SOLID
+        relief = GROOVE
     )
     goal_label.place(
         x = 200, y = 225,
@@ -185,8 +186,8 @@ def click_task_button(window, task_button, notes_button):
         font = "14",
     )
     entry_goal.place(
-        x = 350, y = 225,
-        width = 200,
+        x = 360, y = 225,
+        width = 180,
         height = 30
     )
 
@@ -215,7 +216,7 @@ def click_task_button(window, task_button, notes_button):
         window,
         font = ("Consolas", 14),
         text="Alarm Clock:",
-        relief = SOLID
+        relief = GROOVE
     )
     hour_text = Label(
         window,
@@ -428,7 +429,7 @@ deleteall_button.place(
 cheking()
 
 image = Image.open("logo.png")
-image = image.resize((90, 90), Image.ANTIALIAS)
+image = image.resize((80, 90), Image.ANTIALIAS)
 logo_image = ImageTk.PhotoImage(image)
 logo = Label(image = logo_image)
 logo.place(
