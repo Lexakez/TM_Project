@@ -82,6 +82,7 @@ def click_delete_all_button():
         writer = DictWriter(csv_file, fieldnames = fieldnames)
         writer.writeheader()
     csv_task_list.clear()
+    csv_note_list.clear()
 
 def click_add_task_button(window, add_task_button):
     '''Нажатие на кнопку добавить новую задачу'''
